@@ -16,6 +16,7 @@ public class HomeActivity extends Activity
 	private Button noteButton;
 	private Button disconnectButton;
 	private Intent logInIntent;
+	private Intent taskListIntent;
 	
 	
 	@Override
@@ -35,7 +36,9 @@ public class HomeActivity extends Activity
 		{	
 			public void onClick(View v) 
 			{
-				Toast.makeText(HomeActivity.this, "taskButton OK", Toast.LENGTH_SHORT).show();			
+				Toast.makeText(HomeActivity.this, "taskButton OK", Toast.LENGTH_SHORT).show();	
+				taskListIntent = new Intent(HomeActivity.this, TaskListActivity.class);
+				startActivity(taskListIntent);
 			}
 		});
 		
