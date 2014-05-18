@@ -1,8 +1,9 @@
-package com.talsoft.organizeme.pickers;
+package com.talsoft.organizeme.fragments;
 
-import java.util.Calendar;
-
+/*import java.util.Calendar;
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.TimePickerDialog;
@@ -15,7 +16,7 @@ import android.widget.TimePicker;
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class TimePickerFragment extends DialogFragment implements OnTimeSetListener
 {
-	
+
 	
 	@Override
     public Dialog onCreateDialog(Bundle savedInstanceState) 
@@ -33,7 +34,7 @@ public class TimePickerFragment extends DialogFragment implements OnTimeSetListe
 	@Override
 	public void onTimeSet(TimePicker view, int hourOfDay, int minute) 
 	{
-		 // Do something with the time chosen by the user
+		
 	}
 
-}
+}*/
