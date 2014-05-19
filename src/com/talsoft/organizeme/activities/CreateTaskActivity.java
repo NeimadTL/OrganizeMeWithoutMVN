@@ -1,15 +1,10 @@
 package com.talsoft.organizeme.activities;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-import org.joda.time.format.DateTimeFormatterBuilder;
-import org.joda.time.format.DateTimeParser;
-import org.joda.time.format.DateTimeParserBucket;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -35,6 +30,7 @@ import android.widget.TimePicker;
 import com.talsoft.organizeme.R;
 import com.talsoft.organizeme.datas.OrganizeMeDataBase;
 import com.talsoft.organizeme.models.Task;
+
 
 public class CreateTaskActivity extends Activity
 {
@@ -96,30 +92,25 @@ public class CreateTaskActivity extends Activity
 	        	
 	        	
 	        	//BEGIN PART
-	        	DateTime dt = DateTime.parse(fromDateTextView.getText().toString(),DateTimeFormat.forPattern("EEEE dd MMMM yyyy"));
-	        	DateTime dt1 = DateTime.parse(fromTimeTextView.getText().toString(),DateTimeFormat.forPattern("HH:mm"));
+	        	DateTime fromDate = DateTime.parse(fromDateTextView.getText().toString(),DateTimeFormat.forPattern("EEEE dd MMMM yyyy"));
+	        	DateTime fromTime = DateTime.parse(fromTimeTextView.getText().toString(),DateTimeFormat.forPattern("HH:mm"));
 	        	
-	        	DateTime beginDateTime = new DateTime();
-	        	beginDateTime.withDayOfWeek(dt.getDayOfWeek())
-	        				 .withDayOfMonth(dt.getDayOfMonth())
-	        				 .withMonthOfYear(dt.getMonthOfYear())
-	        				 .withYear(dt.getYear())
-	        				 .withHourOfDay(dt1.getHourOfDay())
-	        				 .withMinuteOfHour(dt1.getMinuteOfHour());
+	        	int year = fromDate.getYear();
+	        	int monthOfDay = fromDate.getMonthOfYear();
+	        	int dayOfMonth = fromDate.getDayOfMonth();
+	        	int hourOfDay = fromTime.getHourOfDay();
+	        	int minuteOfDay = fromTime.getMinuteOfHour();
+	        	
+	        	DateTime beginDateTime = new DateTime(year, monthOfDay, dayOfMonth, hourOfDay, minuteOfDay);
 	        	toCreate.setBeginDate(beginDateTime);
+
 	        	
 	        	
 	        	//END PART
-	        	DateTime dt2 = DateTime.parse(toDateTextView.getText().toString(),DateTimeFormat.forPattern("EEEE dd MMMM yyyy"));
-	        	DateTime dt3 = DateTime.parse(toTimeTextView.getText().toString(),DateTimeFormat.forPattern("HH:mm"));
+	        	DateTime toDate = DateTime.parse(toDateTextView.getText().toString(),DateTimeFormat.forPattern("EEEE dd MMMM yyyy"));
+	        	DateTime toTime = DateTime.parse(toTimeTextView.getText().toString(),DateTimeFormat.forPattern("HH:mm"));
 	        	
-	        	DateTime endDateTime = new DateTime();
-	        	beginDateTime.withDayOfWeek(dt2.getDayOfWeek())
-	        				 .withDayOfMonth(dt2.getDayOfMonth())
-	        				 .withMonthOfYear(dt2.getMonthOfYear())
-	        				 .withYear(dt2.getYear())
-	        				 .withHourOfDay(dt3.getHourOfDay())
-	        				 .withMinuteOfHour(dt3.getMinuteOfHour());
+	        	DateTime endDateTime = new DateTime(toDate.getYear(), toDate.getMonthOfYear(), toDate.getDayOfMonth(), toTime.getHourOfDay(), toTime.getMinuteOfHour());
 	        	toCreate.setEndDate(endDateTime);
 	        	
 	        	OrganizeMeDataBase.getInstance().getTasks().add(toCreate);
@@ -146,21 +137,34 @@ public class CreateTaskActivity extends Activity
 		
 		return super.onKeyDown(keyCode, event);
 	}
+
 	
-	public void showDatePickerDialog(View v) 
+	
+	public void showDatePickerDialogForFromDate(View v) 
 	{
 		fromDateTextView = (TextView) v;
-		toDateTextView = (TextView) v;
-	    DialogFragment newFragment = new DatePickerFragment();
-	    newFragment.show(getFragmentManager(), "datePicker");
+		DatePickerFragment newFragment = new DatePickerFragment();
+	    newFragment.isFromDate = true;
+	    newFragment.show(getFragmentManager(), "toDatePicker");
 	}
+	
+	
+	public void showDatePickerDialogForToDate(View v) 
+	{
+		toDateTextView = (TextView) v;
+		DatePickerFragment newFragment = new DatePickerFragment();
+		newFragment.isFromDate = false;
+	    newFragment.show(getFragmentManager(), "toDatePicker");
+	}
+	
 	
 	
 	
 	@SuppressLint("ValidFragment")
 	public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener 
 	{
-
+		public boolean isFromDate;
+		
 		@Override
 		public Dialog onCreateDialog(Bundle savedInstanceState) 
 		{
@@ -177,37 +181,58 @@ public class CreateTaskActivity extends Activity
 		public void onDateSet(DatePicker view, int year, int month, int day) 
 		{
 			// Do something with the date chosen by the user
-			DateTime date = new DateTime(year, month, day, 0, 0);
+			DateTime date = new DateTime(year, month + 1, day, 0, 0);
 			DateTimeFormatter formatter = DateTimeFormat.forPattern("EEEE dd MMMM yyyy");
 			formatter.withLocale(Locale.FRENCH);
-			fromDateTextView.setText(formatter.print(date));
+		
+			//BUG
+			if(isFromDate)
+			{
+				fromDateTextView.setText(formatter.print(date));
+			}
+			else
+			{
+				toDateTextView.setText(formatter.print(date));
+			}
+			
+        	//BUG
+			
 		}
 	}
 		
 	
 	
+	
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-	public void showTimePickerDialog(View v) 
+	public void showTimePickerDialogForFromTime(View v) 
 	{
 		fromTimeTextView = (TextView) v;
-		toTimeTextView = (TextView) v;
 		TimePickerFragment newFragment = new TimePickerFragment();
-	    newFragment.show(getFragmentManager(), "timePicker");	    
+		newFragment.isFromTime = true;
+	    newFragment.show(getFragmentManager(), "toTimePicker");
+	    
 	}
 	
+	
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+	public void showTimePickerDialogForToTime(View v) 
+	{
+		toTimeTextView = (TextView) v;
+		TimePickerFragment newFragment = new TimePickerFragment();
+		newFragment.isFromTime = false;
+	    newFragment.show(getFragmentManager(), "toTimePicker");
+	    
+	}
 	
 	@SuppressLint("ValidFragment")
 	public  class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener 
 	{
-
+		public boolean isFromTime;
+		
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) 
         {
             // Use the current time as the default values for the picker
-            /*final Calendar c = Calendar.getInstance();
-            int hour = c.get(Calendar.HOUR_OF_DAY);
-            int minute = c.get(Calendar.MINUTE);*/
-            
             DateTime date = new DateTime();
             int hour = date.getHourOfDay();
             int minute = date.getMinuteOfHour();
@@ -219,14 +244,19 @@ public class CreateTaskActivity extends Activity
 
         public void onTimeSet(TimePicker view, int hourOfDay, int minute)
         {
-            // Do something with the time chosen by the user
-        	/*fromTimeTextView.setText(hourOfDay +":"+ minute);
-        	toTimeTextView.setText(hourOfDay +":"+ minute);*/
-        	
+            // Do something with the time chosen by the user        	
         	DateTime date = new DateTime(0, 1, 1, hourOfDay, minute);
         	DateTimeFormatter formatter = DateTimeFormat.forPattern("HH:mm");
-        	fromTimeTextView.setText(formatter.print(date));
-        	toTimeTextView.setText(formatter.print(date));
+        	
+        
+        	if(isFromTime)
+        	{
+        		fromTimeTextView.setText(formatter.print(date));
+        	}
+        	else
+        	{
+        		toTimeTextView.setText(formatter.print(date));
+        	}
         }
     }
 	

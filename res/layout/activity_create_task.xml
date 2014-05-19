@@ -42,7 +42,7 @@
 		    style="@android:style/Widget.Holo.Spinner" 
 		    android:layout_margin="@dimen/activity_vertical_margin"
 		    android:hint="Date de début"
-		    android:onClick="showDatePickerDialog"/>
+		    android:onClick="showDatePickerDialogForFromDate"/>
 	    
 	     <TextView
 		    android:id="@+id/fromTimeTextView"
@@ -51,7 +51,7 @@
 		    style="@android:style/Widget.Holo.Spinner"
 		    android:layout_margin="@dimen/activity_vertical_margin"
 		    android:hint="Heure de début"
-		    android:onClick="showTimePickerDialog"/>
+		    android:onClick="showTimePickerDialogForFromTime"/>
 	     
 	     <TextView
 	        android:id="@+id/toTextView"
@@ -69,7 +69,7 @@
 		    style="@android:style/Widget.Holo.Spinner" 
 		    android:layout_margin="@dimen/activity_vertical_margin"
 		    android:hint="Date de fin"
-		    android:onClick="showDatePickerDialog"/>
+		    android:onClick="showDatePickerDialogForToDate"/>
 	    
 	     <TextView
 		    android:id="@+id/toTimeTextView"
@@ -78,7 +78,7 @@
 		    style="@android:style/Widget.Holo.Spinner"
 		    android:layout_margin="@dimen/activity_vertical_margin"
 		    android:hint="Heure de fin"
-		    android:onClick="showTimePickerDialog"/>
+		    android:onClick="showTimePickerDialogForToTime"/>
 
 
 	    
