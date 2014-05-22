@@ -32,6 +32,7 @@ import com.talsoft.organizeme.datas.OrganizeMeDataBase;
 import com.talsoft.organizeme.models.Task;
 
 
+@SuppressLint("ValidFragment")
 public class CreateTaskActivity extends Activity
 {
 	
@@ -89,35 +90,32 @@ public class CreateTaskActivity extends Activity
 	        	toCreate.setGoal(goal.getText().toString());
 	        	toCreate.setPlace(place.getText().toString());
 	        	
-	        	
-	        	
 	        	//BEGIN PART
 	        	DateTime fromDate = DateTime.parse(fromDateTextView.getText().toString(),DateTimeFormat.forPattern("EEEE dd MMMM yyyy"));
 	        	DateTime fromTime = DateTime.parse(fromTimeTextView.getText().toString(),DateTimeFormat.forPattern("HH:mm"));
-	        	
-	        	int year = fromDate.getYear();
-	        	int monthOfDay = fromDate.getMonthOfYear();
-	        	int dayOfMonth = fromDate.getDayOfMonth();
-	        	int hourOfDay = fromTime.getHourOfDay();
-	        	int minuteOfDay = fromTime.getMinuteOfHour();
-	        	
-	        	DateTime beginDateTime = new DateTime(year, monthOfDay, dayOfMonth, hourOfDay, minuteOfDay);
-	        	toCreate.setBeginDate(beginDateTime);
+	        	DateTime beginDateTime = new DateTime(fromDate.getYear(), fromDate.getMonthOfYear(), 
+	        										  fromDate.getDayOfMonth(), fromTime.getHourOfDay(),
+	        										  fromTime.getMinuteOfHour());
 
-	        	
-	        	
 	        	//END PART
 	        	DateTime toDate = DateTime.parse(toDateTextView.getText().toString(),DateTimeFormat.forPattern("EEEE dd MMMM yyyy"));
 	        	DateTime toTime = DateTime.parse(toTimeTextView.getText().toString(),DateTimeFormat.forPattern("HH:mm"));
+	        	DateTime endDateTime = new DateTime(toDate.getYear(), toDate.getMonthOfYear(), 
+	        										toDate.getDayOfMonth(), toTime.getHourOfDay(), 
+	        										toTime.getMinuteOfHour());
 	        	
-	        	DateTime endDateTime = new DateTime(toDate.getYear(), toDate.getMonthOfYear(), toDate.getDayOfMonth(), toTime.getHourOfDay(), toTime.getMinuteOfHour());
+	        	//finish set field
+	        	toCreate.setBeginDate(beginDateTime);
 	        	toCreate.setEndDate(endDateTime);
 	        	
-	        	OrganizeMeDataBase.getInstance().getTasks().add(toCreate);
+	        	//add task created
+	        	OrganizeMeDataBase.addTask(toCreate);
 	        
 	        	
 	        	
-	        	startActivity(new Intent(CreateTaskActivity.this, TaskListActivity.class));
+	        	//TODO: this line might genrate a bug, activity is started but not stopped TO CHECK
+	        	startActivity(new Intent(CreateTaskActivity.this, TaskListActivity.class)); 
+	        	
 	        	finish();
 	            return true;
 	      
@@ -160,7 +158,6 @@ public class CreateTaskActivity extends Activity
 	
 	
 	
-	@SuppressLint("ValidFragment")
 	public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener 
 	{
 		public boolean isFromDate;
@@ -185,7 +182,6 @@ public class CreateTaskActivity extends Activity
 			DateTimeFormatter formatter = DateTimeFormat.forPattern("EEEE dd MMMM yyyy");
 			formatter.withLocale(Locale.FRENCH);
 		
-			//BUG
 			if(isFromDate)
 			{
 				fromDateTextView.setText(formatter.print(date));
@@ -194,8 +190,7 @@ public class CreateTaskActivity extends Activity
 			{
 				toDateTextView.setText(formatter.print(date));
 			}
-			
-        	//BUG
+
 			
 		}
 	}
@@ -224,7 +219,7 @@ public class CreateTaskActivity extends Activity
 	    
 	}
 	
-	@SuppressLint("ValidFragment")
+	
 	public  class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener 
 	{
 		public boolean isFromTime;

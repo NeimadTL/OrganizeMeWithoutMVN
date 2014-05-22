@@ -13,8 +13,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
+
 import com.talsoft.organizeme.R;
-import com.talsoft.organizeme.fragments.DisconnectDialogFragment;
 
 public class HomeActivity extends Activity
 {
@@ -23,6 +23,7 @@ public class HomeActivity extends Activity
 	private Button disconnectButton;
 	private Intent logInIntent;
 	private Intent taskListIntent;
+	private Intent tagListIntent;
 	
 	
 	@Override
@@ -55,6 +56,8 @@ public class HomeActivity extends Activity
 			public void onClick(View v) 
 			{
 				Toast.makeText(HomeActivity.this, "noteButton OK", Toast.LENGTH_SHORT).show();
+				tagListIntent = new Intent(HomeActivity.this, TagListActivity.class);
+				startActivity(tagListIntent);
 			}
 		});
 		
@@ -64,9 +67,6 @@ public class HomeActivity extends Activity
 		{	
 			public void onClick(View v) 
 			{
-				/*logInIntent = new Intent(HomeActivity.this, LogInActivity.class);
-				startActivity(logInIntent);
-				finish();*/
 				showDisconnectDialog();
 			}
 		});

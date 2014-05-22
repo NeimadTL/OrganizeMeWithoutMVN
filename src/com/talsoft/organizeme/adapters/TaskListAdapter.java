@@ -18,7 +18,7 @@ import com.talsoft.organizeme.R;
 import com.talsoft.organizeme.models.Task;
 
 
-public class TaskAdapter extends BaseAdapter
+public class TaskListAdapter extends BaseAdapter
 {
 	
 	private Context context;
@@ -26,7 +26,7 @@ public class TaskAdapter extends BaseAdapter
 	private LayoutInflater inflater;
 	
 	
-	public TaskAdapter(Context context, List<Task> tasks)
+	public TaskListAdapter(Context context, List<Task> tasks)
 	{
 		this.context = context;
 		this.tasks = tasks;
@@ -64,7 +64,7 @@ public class TaskAdapter extends BaseAdapter
 		convertView = inflater.inflate(R.layout.list_view_task,null);
 		
 		TextView goal = (TextView) convertView.findViewById(R.id.goalEditText);
-		goal.setText("* " +task.getGoal());
+		goal.setText("# " + task.getGoal());
 		
 		TextView place = (TextView) convertView.findViewById(R.id.placeEditText);
 		place.setText(task.getPlace());
