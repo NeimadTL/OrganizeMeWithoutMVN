@@ -34,6 +34,8 @@
          <activity android:name=".activities.CreateTaskActivity"></activity>
          <activity android:name=".activities.TagListActivity"></activity>
          <activity android:name=".activities.CreateTagActivity"></activity>
+         <activity android:name=".activities.NoteListActivity"></activity>
+         <activity android:name=".activities.CreateNoteActivity"></activity>
     </application>
 
 </manifest>

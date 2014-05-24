@@ -3,6 +3,7 @@ package com.talsoft.organizeme.datas;
 import java.util.List;
 
 import com.google.common.collect.Lists;
+import com.talsoft.organizeme.models.Note;
 import com.talsoft.organizeme.models.Tag;
 import com.talsoft.organizeme.models.Task;
 
@@ -10,17 +11,19 @@ import com.talsoft.organizeme.models.Task;
 
 public class OrganizeMeDataBase 
 {
+	
+	
 	private static  OrganizeMeDataBase instance = null;
 	private List<Task> tasks;
 	private List<Tag> tags;
-	//private Map<String,List<Note>> taggedNotes;
-
+	private List<Note> notes;
+	
 	
 	private OrganizeMeDataBase() 
 	{
 		tasks = Lists.newArrayList();
 		tags = Lists.newArrayList();
-		//taggedNotes = Maps.newHashMap();
+		notes = Lists.newArrayList();
 	}
 	
 	 
@@ -44,7 +47,7 @@ public class OrganizeMeDataBase
 	}
 	
 	
-	public static void  addTask(Task task)
+	public static void addTask(Task task)
 	{
 		getInstance().getTasks().add(task);
 	}
@@ -60,7 +63,29 @@ public class OrganizeMeDataBase
 	{
 		getInstance().getTags().add(tag);
 	}
-
+	
+	
+	public static List<Note> getAllNotesWithTagName(String tagName)
+	{
+		List<Note> filteredList = Lists.newArrayList();
+		
+		for(Note current : getInstance().getNotes())
+		{
+			if(current.getTagName().equalsIgnoreCase(tagName))
+			{
+				filteredList.add(current);
+			}
+		}
+		
+		return filteredList;
+	}
+	
+	
+	public static void addNote(Note note)
+	{
+		getInstance().getNotes().add(note);
+	}
+	
 
 	private List<Task> getTasks() 
 	{
@@ -74,14 +99,28 @@ public class OrganizeMeDataBase
 	}
 
 
-	public List<Tag> getTags() 
+	private List<Tag> getTags() 
 	{
 		return tags;
 	}
 
-
-	public void setTags(List<Tag> tags)
+												
+	private void setTags(List<Tag> tags)
 	{
 		this.tags = tags;
 	}
+
+
+	private List<Note> getNotes() 
+	{
+		return notes;
+	}
+
+
+	private void setNotes(List<Note> notes) 
+	{
+		this.notes = notes;
+	}
+	
+	
 }

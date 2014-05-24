@@ -1,13 +1,14 @@
 package com.talsoft.organizeme.activities;
 
-import java.util.ArrayList;
-
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import com.talsoft.organizeme.R;
 import com.talsoft.organizeme.adapters.TagListAdapter;
@@ -28,8 +29,6 @@ public class TagListActivity extends ListActivity
 		
 		tagAdapter = new TagListAdapter(TagListActivity.this,OrganizeMeDataBase.getAllTags());
 		setListAdapter(tagAdapter);
-		
-		//registerForContextMenu(getListView());	
 	}
 	
 	
@@ -58,5 +57,21 @@ public class TagListActivity extends ListActivity
 	        default:
 	            return super.onOptionsItemSelected(item);
 	    }
+	}
+	
+	
+	protected void onListItemClick(ListView l, View v, int position, long id)
+	{
+		Toast.makeText(TagListActivity.this, "onListItemClick()", Toast.LENGTH_SHORT).show();
+		
+		Tag tag = (Tag) l.getItemAtPosition(position);
+		String tagNameValue = tag.getName();
+		
+		Intent i = new Intent(TagListActivity.this, NoteListActivity.class);
+		i.putExtra("tagName", tagNameValue);
+		startActivity(i);
+		
+    	finish();
+		
 	}
 }
