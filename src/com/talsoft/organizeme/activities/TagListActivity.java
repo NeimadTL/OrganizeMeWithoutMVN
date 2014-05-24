@@ -27,6 +27,9 @@ public class TagListActivity extends ListActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tag_list);
 		
+		//set title of this activity
+		setTitle("Mes tags");
+		
 		tagAdapter = new TagListAdapter(TagListActivity.this,OrganizeMeDataBase.getAllTags());
 		setListAdapter(tagAdapter);
 	}

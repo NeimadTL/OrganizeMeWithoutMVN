@@ -25,6 +25,9 @@ public class TaskListActivity extends ListActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_task_list);
 		
+		//set title of this activity
+		setTitle("Mes tâches");
+		
 		taskAdapter = new TaskListAdapter(TaskListActivity.this,OrganizeMeDataBase.getAllTasks());
 		setListAdapter(taskAdapter);
 		

@@ -32,6 +32,9 @@ public class HomeActivity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
 		
+		//set title of this activity
+		setTitle("Home");
+		
 		// bind object from activity_home.xml to this activity
 		taskButton = (Button) findViewById(R.id.taskButton);
 		noteButton = (Button) findViewById(R.id.noteButton);

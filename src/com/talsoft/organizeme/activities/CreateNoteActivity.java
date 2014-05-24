@@ -23,6 +23,9 @@ public class CreateNoteActivity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_note);
 
+		//set title of this activity
+		setTitle("Créer une note");
+				
 		noteTitle = (EditText) findViewById(R.id.noteTitleEditText);
 	}
 	

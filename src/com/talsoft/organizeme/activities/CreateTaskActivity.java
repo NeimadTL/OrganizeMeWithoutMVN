@@ -51,6 +51,9 @@ public class CreateTaskActivity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_task);
 		
+		//set title of this activity
+		setTitle("Créer une tâche");
+		
 		goal = (EditText) findViewById(R.id.goalEditText);
 		place = (EditText) findViewById(R.id.placeEditText);
 		

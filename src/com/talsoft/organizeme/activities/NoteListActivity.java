@@ -22,6 +22,9 @@ public class NoteListActivity extends ListActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_note_list);
 		
+		//set title of this activity
+		setTitle("Mes notes");
+		
 		//get previous' tag's name
 		String tagName = this.getIntent().getStringExtra("tagName");
 		

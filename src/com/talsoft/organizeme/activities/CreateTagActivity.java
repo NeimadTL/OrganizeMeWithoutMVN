@@ -22,6 +22,9 @@ public class CreateTagActivity  extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_create_tag);
+		
+		//set title of this activity
+		setTitle("Créer une tag");
 
 		tagName = (EditText) findViewById(R.id.tagNameEditText);	
 	}
