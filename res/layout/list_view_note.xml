@@ -11,5 +11,11 @@
         android:textAppearance="?android:attr/textAppearanceLarge" 
         android:textStyle="bold"
         android:textSize="25sp"/>
+    
+    <ImageView 
+        android:id="@+id/photoView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:contentDescription="desc"/>
 
 </LinearLayout>

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.talsoft.organizeme.R;
@@ -57,6 +58,10 @@ public class NoteListAdapter  extends BaseAdapter
 		
 		TextView noteTitle = (TextView) convertView.findViewById(R.id.noteTitleTextView);
 		noteTitle.setText(note.getTitle());
+		
+		//
+		ImageView photoView = (ImageView) convertView.findViewById(R.id.photoView);
+		photoView.setImageBitmap(note.getPhoto());
 		
 		return convertView;
 	}

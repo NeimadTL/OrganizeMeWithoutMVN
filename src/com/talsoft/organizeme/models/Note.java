@@ -1,10 +1,13 @@
 package com.talsoft.organizeme.models;
 
+import android.graphics.Bitmap;
+
 public class Note 
 {
 	
 	private String title;
 	private String tagName;
+	private Bitmap photo;
 
 	
 	public String getTitle() 
@@ -29,4 +32,19 @@ public class Note
 	{
 		this.tagName = tagName;
 	}
+
+
+	public Bitmap getPhoto() 
+	{
+		return photo;
+	}
+
+
+	public void setPhoto(Bitmap photo) 
+	{
+		this.photo = photo;
+	}
+	
+	
+	
 }
