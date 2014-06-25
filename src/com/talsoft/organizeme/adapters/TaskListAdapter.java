@@ -67,7 +67,7 @@ public class TaskListAdapter extends BaseAdapter
 		goal.setText("# " + task.getGoal());
 		
 		TextView place = (TextView) convertView.findViewById(R.id.placeEditText);
-		place.setText(task.getPlace());
+		place.setText("Lieu : " + task.getPlace());
 		
 		TextView beginDate = (TextView) convertView.findViewById(R.id.beginDateEditText);
 		beginDate.setText(dateTimeAsString(task.getBeginDate()));

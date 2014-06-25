@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     
     <item android:id="@+id/action_create_tag"
-	    android:icon="@drawable/ic_action_accept"
+	    android:icon="@drawable/ic_action_validate"
 	    android:title="Créer ce tag"
 	    android:showAsAction="ifRoom"/>
 </menu>

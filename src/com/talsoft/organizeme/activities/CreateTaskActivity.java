@@ -181,7 +181,7 @@ public class CreateTaskActivity extends Activity
 		public void onDateSet(DatePicker view, int year, int month, int day) 
 		{
 			// Do something with the date chosen by the user
-			DateTime date = new DateTime(year, month + 1, day, 0, 0);
+			DateTime date = new DateTime(year, month , day, 0, 0);
 			DateTimeFormatter formatter = DateTimeFormat.forPattern("EEEE dd MMMM yyyy");
 			formatter.withLocale(Locale.FRENCH);
 		

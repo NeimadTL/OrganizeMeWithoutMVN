@@ -21,10 +21,12 @@ public class CreateNoteActivity extends Activity
 {
 	
 	public static final int REQUEST_IMAGE_CAPTURE = 1;
+	public static final int REQUEST_AUDIO_CAPTURE = 2;
 	
 	private EditText noteTitle;
 	private Button takePhotoBtn;
 	private Note toCreate;
+	private Button takeAudioRecBtn;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
@@ -38,21 +40,36 @@ public class CreateNoteActivity extends Activity
 		toCreate = new Note();
 				
 		noteTitle = (EditText) findViewById(R.id.noteTitleEditText);
-		
 		takePhotoBtn = (Button) findViewById(R.id.takePhotoButton);
+		takeAudioRecBtn = (Button) findViewById(R.id.takeAudioRecButton);
+		
+		
 		takePhotoBtn.setOnClickListener(new OnClickListener() 
 		{
-			
 			@Override
 			public void onClick(View v) 
 			{
-				Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+				Intent intentForPhoto = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 				
-				if(intent.resolveActivity(getPackageManager()) != null)
+				if(intentForPhoto.resolveActivity(getPackageManager()) != null)
 				{
-					startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+					startActivityForResult(intentForPhoto, REQUEST_IMAGE_CAPTURE);
 				}
-				
+			}
+		});
+		
+		
+		takeAudioRecBtn.setOnClickListener(new OnClickListener() 
+		{
+			@Override
+			public void onClick(View v) 
+			{
+				Intent intentForAudio = new Intent(CreateNoteActivity.this, AudioRecordingActivity.class);
+						
+				if(intentForAudio.resolveActivity(getPackageManager()) != null)
+				{
+					startActivityForResult(intentForAudio, REQUEST_AUDIO_CAPTURE);
+				}
 			}
 		});
 	}
@@ -61,12 +78,22 @@ public class CreateNoteActivity extends Activity
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
+		if(data == null)
+			return;
+		
+		Bundle extras = data.getExtras();
+		
 		if(requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK)
-		{
-			Bundle extras = data.getExtras();
+		{	
 			Bitmap imageBitMap = (Bitmap) extras.get("data");	
-			toCreate.setPhoto(imageBitMap);
-			
+			toCreate.setPhoto(imageBitMap);	
+		}
+		
+		
+		if(requestCode == REQUEST_AUDIO_CAPTURE && resultCode == RESULT_OK)
+		{
+			String audioFileName = (String) extras.get("audioFileName");	
+			toCreate.setAudioFileName(audioFileName);	
 		}
 	}
 	

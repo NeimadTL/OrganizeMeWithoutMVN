@@ -9,8 +9,12 @@
         android:targetSdkVersion="14" />
     
     
-    <uses-feature  android:name="android.hardwoare.camera"
-        		   android:required="true"/>
+    <uses-feature  
+        android:name="android.hardwoare.camera"
+    	android:required="true"/>
+    
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -40,6 +44,7 @@
          <activity android:name=".activities.CreateTagActivity"></activity>
          <activity android:name=".activities.NoteListActivity"></activity>
          <activity android:name=".activities.CreateNoteActivity"></activity>
+         <activity android:name=".activities.AudioRecordingActivity"></activity>
     </application>
 
 </manifest>

@@ -1,13 +1,16 @@
 package com.talsoft.organizeme.models;
 
+import java.io.Serializable;
+
 import android.graphics.Bitmap;
 
-public class Note 
+public class Note implements Serializable
 {
 	
 	private String title;
 	private String tagName;
 	private Bitmap photo;
+	private String audioFileName;
 
 	
 	public String getTitle() 
@@ -44,6 +47,21 @@ public class Note
 	{
 		this.photo = photo;
 	}
+
+
+	public String getAudioFileName() 
+	{
+		return audioFileName;
+	}
+
+
+	public void setAudioFileName(String audioFileName) 
+	{
+		this.audioFileName = audioFileName;
+	}
+	
+	
+	
 	
 	
 	
